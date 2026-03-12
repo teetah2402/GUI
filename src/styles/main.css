@@ -1,0 +1,90 @@
+/* #######################################################################
+   WEBSITE https://floworkos.com
+   File NAME : src/styles/main.css
+   DESCRIPTION : Layout Fixes (Padding, Spacing & Mobile Safety)
+   ####################################################################### */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --header-height-desktop: 80px;
+  --header-height-mobile: 70px;
+  --c-bg-page: #0f1115;
+  --c-text-main: #ffffff;
+}
+
+/* [FIX 1] Box Sizing Global (PENTING BIAR GAK KEPOTONG KIRI/KANAN) */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--c-bg-page);
+  color: var(--c-text-main);
+  font-family: 'Inter', sans-serif;
+  margin: 0; padding: 0;
+  overflow-x: hidden; /* Mencegah scroll horizontal yang tidak perlu */
+  width: 100%;
+  /* [NOTE] Memastikan user bisa copy-paste teks di Web */
+  user-select: auto !important;
+}
+
+/* [FIX 2] Container Utama agar tidak ketabrak Header Fixed */
+.public-main,
+.main-content-wrapper,
+.auth-layout-fix {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  /* Dorong konten ke bawah sesuai tinggi header + jarak aman */
+  padding-top: calc(var(--header-height-desktop) + 20px) !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+  .public-main,
+  .main-content-wrapper,
+  .auth-layout-fix {
+    padding-top: calc(var(--header-height-mobile) + 15px) !important;
+    padding-left: 16px; /* Jarak aman kiri di HP */
+    padding-right: 16px;
+  }
+}
+
+/* Utility Classes (Wajib ada pengganti Vuetify) */
+.d-flex { display: flex !important; }
+.flex-column { flex-direction: column !important; }
+.align-center { align-items: center !important; }
+.justify-center { justify-content: center !important; }
+.justify-space-between { justify-content: space-between !important; }
+.w-100 { width: 100% !important; }
+.text-center { text-align: center !important; }
+
+/* Auth Specific (Login/Register) */
+.auth-layout-fix {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Fix Card Background */
+.auth-card-glass {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 17, 21, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  /* Pastikan card tidak nempel pinggir di HP */
+  margin: 0 auto;
+}
+
+/* Helper Text Input */
+.v-field__input, input, textarea {
+  color: #fff !important;
+}
